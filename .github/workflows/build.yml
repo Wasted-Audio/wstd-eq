@@ -27,8 +27,8 @@ jobs:
         run: |
           hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_EQ/plugin/source/
-          cd WSTD_EQ
-          make WITH_LTO=true -j $(nproc)
+          make -C WSTD_EQ features
+          make -C WSTD_EQ WITH_LTO=true -j $(nproc)
 
       - name: Set sha8 (non-release)
         if: startsWith(github.ref, 'refs/tags/') != true
@@ -86,8 +86,8 @@ jobs:
         run: |
           hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_EQ/plugin/source/
-          cd WSTD_EQ
-          make WITH_LTO=true -j $(nproc)
+          make -C WSTD_EQ features
+          make -C WSTD_EQ WITH_LTO=true -j $(nproc)
 
       - name: Set sha8 (non-release)
         if: startsWith(github.ref, 'refs/tags/') != true
@@ -139,8 +139,8 @@ jobs:
         run: |
           hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_EQ/plugin/source/
-          cd WSTD_EQ
-          make NOOPT=true WITH_LTO=true -j $(sysctl -n hw.logicalcpu)
+          make -C WSTD_EQ features
+          make -C WSTD_EQ NOOPT=true WITH_LTO=true -j $(sysctl -n hw.logicalcpu)
           .././dpf/utils/package-osx-bundles.sh
 
       - name: Set sha8 (non-release)
