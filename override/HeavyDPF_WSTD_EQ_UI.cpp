@@ -51,19 +51,19 @@ protected:
     {
         switch (index) {
             case 0: {
-                ffreq = value;
-                break;
-            }
-            case 1: {
                 fhigh = value;
                 break;
             }
-            case 2: {
+            case 1: {
                 flow = value;
                 break;
             }
-            case 3: {
+            case 2: {
                 fmid = value;
+                break;
+            }
+            case 3: {
+                ffreq = value;
                 break;
             }
             
