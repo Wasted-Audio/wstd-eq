@@ -1,0 +1,96 @@
+#N canvas 494 209 1199 625 12;
+#N canvas 0 50 450 250 (subpatch) 0;
+#X text 0 0 plugdatainfo <?xml version="1.0" encoding="UTF-8"?> <plugdatainfo><InfoObj
+ID="16.F....PA.........A....." Updated="0" Segmented="0"/><InfoObj
+ID="16.Q....b....f.....A....." Updated="0" Segmented="0" Path="48......................z7+++O.....M++++e3+++eY++++G9+++W1++++g++++"/><InfoObj
+ID="16.Q....L....f.....A....." Updated="0" Segmented="0" Path="48......D..........Y....j8+++eF....Y++++uD...vX++++KA...L1++++w...."/><InfoObj
+ID="16.Q....T....f.....A....." Updated="0" Segmented="0" Path="32......D..........g....L1+++eH....i8+++GD...."/><InfoObj
+ID="16.Q....f....f.....A....." Updated="0" Segmented="0" Path="32......D..........R.....m+++uD....v4+++WC...."/><InfoObj
+ID="16.Q....r....f.....A....." Updated="0" Segmented="0"/></plugdatainfo>
+;
+#X coords 0 1 100 -1 1 1 1;
+#X restore 0 0 graph;
+#X obj 192 343 adc~;
+#X obj 192 432 dac~;
+#X obj 458 143 hsl 128 17 -15 15 0 0 empty empty empty -2 -8 0 10 -24967
+-262144 -262144 6350 1;
+#X msg 458 168 highvol \$1, f 11;
+#X obj 458 277 hsl 128 17 -15 15 0 0 empty empty empty -2 -8 0 10 -24967
+-262144 -262144 6350 1;
+#X msg 458 302 midvol \$1, f 11;
+#X obj 456 464 hsl 128 17 -15 15 0 0 empty empty empty -2 -8 0 10 -24967
+-262144 -262144 6350 1;
+#X msg 456 489 lowvol \$1, f 11;
+#X msg 701 314 midfreq \$1, f 12;
+#X msg 812 370 midq \$1, f 9;
+#X obj 458 110 r High @hv_param -15 15 0 db;
+#X obj 458 246 r Mid @hv_param -15 15 0 db;
+#X obj 456 432 r Low @hv_param -15 15 0 db;
+#X obj 701 273 hsl 128 17 313.3 5705.6 1 0 empty empty empty -2 -8
+0 10 -1 -262144 -91543 6350 1;
+#N canvas 523 290 995 434 stereo_eq_pass 0;
+#N canvas 0 50 450 250 (subpatch) 0;
+#X text 0 0 plugdatainfo <?xml version="1.0" encoding="UTF-8"?> <plugdatainfo/>
+;
+#X coords 0 1 100 -1 1 1 1;
+#X restore 0 0 graph;
+#X obj 292 123 inlet~;
+#X obj 433 123 inlet~;
+#X obj 649 130 inlet;
+#X obj 361 319 outlet~;
+#X obj 721 319 outlet~;
+#X obj 257 233 throw~ \$0-L;
+#X obj 361 233 throw~ \$0-L;
+#X obj 461 233 throw~ \$0-L;
+#X obj 618 230 throw~ \$0-R;
+#X obj 721 230 throw~ \$0-R;
+#X obj 827 230 throw~ \$0-R;
+#X obj 361 289 catch~ \$0-L;
+#X obj 721 289 catch~ \$0-R;
+#X obj 292 190 wstd.cmpnnts/eq_pass, f 23;
+#X obj 653 195 wstd.cmpnnts/eq_pass, f 23;
+#X connect 1 0 14 0;
+#X connect 2 0 15 0;
+#X connect 3 0 14 1;
+#X connect 3 0 15 1;
+#X connect 12 0 4 0;
+#X connect 13 0 5 0;
+#X connect 14 0 6 0;
+#X connect 14 1 7 0;
+#X connect 14 2 8 0;
+#X connect 15 0 9 0;
+#X connect 15 1 10 0;
+#X connect 15 2 11 0;
+#X restore 192 388 pd stereo_eq_pass;
+#X obj 686 141 loadbang;
+#X msg 734 179 1337, f 7;
+#X msg 686 179 0, f 5;
+#X obj 812 314 wstd.cmpnnts/eqmidq;
+#X obj 812 342 wstd.cmpnnts/qcalc;
+#X obj 701 242 r Mid_Freq @hv_param 313.3 5705.6 1337 log_hz;
+#X connect 1 0 15 0;
+#X connect 1 1 15 1;
+#X connect 3 0 4 0;
+#X connect 4 0 15 2;
+#X connect 5 0 6 0;
+#X connect 6 0 15 2;
+#X connect 7 0 8 0;
+#X connect 8 0 15 2;
+#X connect 9 0 15 2;
+#X connect 10 0 15 2;
+#X connect 11 0 3 0;
+#X connect 12 0 5 0;
+#X connect 13 0 7 0;
+#X connect 14 0 9 0;
+#X connect 14 0 19 0;
+#X connect 15 0 2 0;
+#X connect 15 1 2 1;
+#X connect 16 0 18 0;
+#X connect 16 0 17 0;
+#X connect 17 0 14 0;
+#X connect 18 0 3 0;
+#X connect 18 0 5 0;
+#X connect 18 0 7 0;
+#X connect 19 0 20 0;
+#X connect 20 0 10 0;
+#X connect 21 0 14 0;
