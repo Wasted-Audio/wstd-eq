@@ -1,0 +1,12 @@
+[submodule "heavylib"]
+	path = heavylib
+	url = git@github.com:Wasted-Audio/heavylib.git
+[submodule "wstd.cmpnnts"]
+	path = wstd.cmpnnts
+	url = ssh://git@git.idiopolis.nl:2222/wasted.audio/wstd.cmpnnts.git
+[submodule "dpf"]
+	path = dpf
+	url = git@github.com:DISTRHO/DPF.git
+[submodule "dpf-widgets"]
+	path = dpf-widgets
+	url = git@github.com:Wasted-Audio/DPF-Widgets.git
