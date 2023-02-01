@@ -29,7 +29,6 @@ jobs:
         run: |
           hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_EQ/plugin/source/
-          make -C WSTD_EQ features
           make -C WSTD_EQ WITH_LTO=true -j $(nproc)
 
       - name: Set sha8 (non-release)

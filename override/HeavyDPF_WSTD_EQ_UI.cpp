@@ -113,11 +113,11 @@ protected:
 
                 if (ImGui::IsItemActivated())
                 {
-                    editParameter(1, true);
+                    editParameter(0, true);
                     if (ImGui::IsMouseDoubleClicked(0))
                         fhigh = 0.0f;
                 }
-                setParameterValue(1, fhigh);
+                setParameterValue(0, fhigh);
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
@@ -128,11 +128,11 @@ protected:
             {
                 if (ImGui::IsItemActivated())
                 {
-                    editParameter(3, true);
+                    editParameter(2, true);
                     if (ImGui::IsMouseDoubleClicked(0))
                         fmid = 0.0f;
                 }
-                setParameterValue(3, fmid);
+                setParameterValue(2, fmid);
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
@@ -144,11 +144,11 @@ protected:
             {
                 if (ImGui::IsItemActivated())
                 {
-                    editParameter(0, true);
+                    editParameter(3, true);
                     if (ImGui::IsMouseDoubleClicked(0))
                         ffreq = 1337.0f;
                 }
-                setParameterValue(0, ffreq);
+                setParameterValue(3, ffreq);
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
@@ -159,11 +159,11 @@ protected:
             {
                 if (ImGui::IsItemActivated())
                 {
-                    editParameter(2, true);
+                    editParameter(1, true);
                     if (ImGui::IsMouseDoubleClicked(0))
                         flow = 0.0f;
                 }
-                setParameterValue(2, flow);
+                setParameterValue(1, flow);
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
