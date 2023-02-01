@@ -1,9 +1,5 @@
 /*
- * ImGui plugin example
- * Copyright (C) 2021 Jean Pierre Cimalando <jp-dev@inbox.ru>
- * Copyright (C) 2021-2022 Filipe Coelho <falktx@falktx.com>
- * SPDX-License-Identifier: ISC
- */
+/** Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later */
 
 #include "DistrhoUI.hpp"
 #include "ResizeHandle.hpp"
@@ -18,7 +14,7 @@ class ImGuiPluginUI : public UI
     float fhigh = 0.0f;
     float flow = 0.0f;
     float fmid = 0.0f;
-    
+
     ResizeHandle fResizeHandle;
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -66,10 +62,10 @@ protected:
                 ffreq = value;
                 break;
             }
-            
+
             default: return;
         }
-    
+
         repaint();
     }
 
@@ -79,9 +75,9 @@ protected:
    /**
       ImGui specific onDisplay function.
     */
-    void onImGuiDisplay() override  
+    void onImGuiDisplay() override
     {
-        
+
         const float width = getWidth();
         const float height = getHeight();
         // const float margin = 20.0f * getScaleFactor();
@@ -89,7 +85,7 @@ protected:
 
         ImGui::SetNextWindowPos(ImVec2(margin, margin));
         ImGui::SetNextWindowSize(ImVec2(width - 2 * margin, height - 2 * margin));
-        
+
         ImGuiStyle& style = ImGui::GetStyle();
         style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
 
@@ -140,7 +136,7 @@ protected:
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
-    
+
             ImGui::SetCursorPosX(23.0f);
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)ImColor::HSV(1.6f / 3.6f, 0.77f, 0.44f));
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)ImColor::HSV(1.6f / 3.6f, 0.77f, 0.64f));
@@ -156,7 +152,7 @@ protected:
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
-    
+
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)ImColor::HSV(0.03f / 3.6f, 0.76f, 0.74f));
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)ImColor::HSV(0.03f / 3.6f, 0.76f, 0.84f));
             if (ImGuiKnobs::Knob("Low", &flow, -15.0f, 15.0, 0.2f, "%.1fdB", ImGuiKnobVariant_SteppedTick, 100, ImGuiKnob_FlagsDB, 7))
@@ -171,7 +167,7 @@ protected:
             }
             ImGui::PopStyleColor();
             ImGui::PopStyleColor();
-    
+
             if (ImGui::IsItemDeactivated())
             {
                 editParameter(0, false);
