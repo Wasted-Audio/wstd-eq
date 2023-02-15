@@ -1,5 +1,6 @@
-/*
-/** Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later */
+/**
+ * Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later
+ */
 
 #include "DistrhoUI.hpp"
 #include "ResizeHandle.hpp"
@@ -92,6 +93,7 @@ protected:
         style.Colors[ImGuiCol_TitleBgActive] = (ImVec4)ImColor::HSV(3.31f / 3.6f, 0.64f, 0.40f);
         style.Colors[ImGuiCol_WindowBg] = (ImVec4)ImColor::HSV(3.31f / 3.6f, 0.64f, 0.10f);
 
+        ImGui::Text("DpiEnableScaleFonts");
         ImFont* defaultFont = ImGui::GetFont();
         ImFont* titleBarFont = new ImFont(*defaultFont);
         titleBarFont->Scale = 1.3f;
