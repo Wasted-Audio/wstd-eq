@@ -2,11 +2,11 @@
 
 #pragma once
 
-#define DISTRHO_PLUGIN_NAME                 "WSTD EQ"
-#define DISTRHO_PLUGIN_URI                  "https://wasted.audio/software/wstd_eq"
-#define DISTRHO_PLUGIN_CLAP_ID              "audio.wasted.wstd_eq"
+#define DISTRHO_PLUGIN_NAME                 "WSTD 3Q"
+#define DISTRHO_PLUGIN_URI                  "https://wasted.audio/software/wstd_3q"
+#define DISTRHO_PLUGIN_CLAP_ID              "audio.wasted.wstd_3q"
 #define DISTRHO_PLUGIN_NUM_INPUTS           2
-#define DISTRHO_PLUGIN_NUM_OUTPUTS          2
+#define DISTRHO_PLUGIN_NUM_OUTPUTS          6
 #define DISTRHO_PLUGIN_IS_SYNTH             0
 #define DISTRHO_PLUGIN_HAS_UI               1
 #define DISTRHO_PLUGIN_IS_RT_SAFE           1

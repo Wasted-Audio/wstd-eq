@@ -27,9 +27,9 @@ jobs:
 
       - name: Build plugins
         run: |
-          hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
-          cp override/* WSTD_EQ/plugin/source/
-          make -C WSTD_EQ WITH_LTO=true -j $(nproc)
+          hvcc wstd_3q_pass_q_dpf.pd -n WSTD_3Q -m wstd_3q_pass_dpf.json -o WSTD_3Q -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
+          cp override/* WSTD_3Q/plugin/source/
+          make -C WSTD_3Q WITH_LTO=true -j $(nproc)
 
       - name: Set sha8 (non-release)
         if: startsWith(github.ref, 'refs/tags/') != true
@@ -42,13 +42,13 @@ jobs:
 
       - name: Pack binaries
         run: |
-          cd WSTD_EQ
+          cd WSTD_3Q
           tar -c -h  -z -f ${{ github.event.repository.name }}-linux-x86_64-${{ github.event.pull_request.number || env.action_tag }}.tar.gz bin/
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}-linux-x86_64-${{ github.event.pull_request.number || env.action_tag }}
           path: |
-            WSTD_EQ/*.tar.gz
+            WSTD_3Q/*.tar.gz
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
@@ -57,7 +57,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            WSTD_EQ/*.tar.gz
+            WSTD_3Q/*.tar.gz
 
   win64:
     runs-on: ubuntu-20.04
@@ -85,9 +85,9 @@ jobs:
           PKG_CONFIG: "false"
           WINEDEBUG: "-all"
         run: |
-          hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
-          cp override/* WSTD_EQ/plugin/source/
-          make -C WSTD_EQ WITH_LTO=true -j $(nproc)
+          hvcc wstd_3q_pass_q_dpf.pd -n WSTD_3Q -m wstd_3q_pass_dpf.json -o WSTD_3Q -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
+          cp override/* WSTD_3Q/plugin/source/
+          make -C WSTD_3Q WITH_LTO=true -j $(nproc)
 
       - name: Set sha8 (non-release)
         if: startsWith(github.ref, 'refs/tags/') != true
@@ -99,13 +99,13 @@ jobs:
         run: echo "action_tag=$(echo ${{ github.ref_name }})" >> $GITHUB_ENV
       - name: Pack binaries
         run: |
-          cd WSTD_EQ
+          cd WSTD_3Q
           tar -c -h -z -f ${{ github.event.repository.name }}-win64-${{ github.event.pull_request.number || env.action_tag }}.tar.gz bin/
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}-win64-${{ github.event.pull_request.number || env.action_tag }}
           path: |
-            WSTD_EQ/*.tar.gz
+            WSTD_3Q/*.tar.gz
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
@@ -114,7 +114,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            WSTD_EQ/*.tar.gz
+            WSTD_3Q/*.tar.gz
 
   macos-universal:
     runs-on: macos-11
@@ -137,10 +137,10 @@ jobs:
           CXXFLAGS: -arch x86_64 -arch arm64 -DMAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_12 -mmacosx-version-min=10.12 -mtune=generic -msse -msse2
           LDFLAGS: -arch x86_64 -arch arm64 -mmacosx-version-min=10.12
         run: |
-          hvcc wstd_eq_pass_q_dpf.pd -n WSTD_EQ -m wstd_eq_pass_dpf.json -o WSTD_EQ -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
-          cp override/* WSTD_EQ/plugin/source/
-          make -C WSTD_EQ NOOPT=true WITH_LTO=true -j $(sysctl -n hw.logicalcpu)
-          cd WSTD_EQ
+          hvcc wstd_3q_pass_q_dpf.pd -n WSTD_3Q -m wstd_3q_pass_dpf.json -o WSTD_3Q -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
+          cp override/* WSTD_3Q/plugin/source/
+          make -C WSTD_3Q NOOPT=true WITH_LTO=true -j $(sysctl -n hw.logicalcpu)
+          cd WSTD_3Q
           ../dpf/utils/package-osx-bundles.sh
 
       - name: Set sha8 (non-release)
@@ -156,7 +156,7 @@ jobs:
         with:
           name: ${{ github.event.repository.name }}-macOS-universal-${{ github.event.pull_request.number || env.action_tag }}
           path: |
-            WSTD_EQ/*-macOS.pkg
+            WSTD_3Q/*-macOS.pkg
 
       - uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -166,4 +166,4 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            WSTD_EQ/*-macOS.pkg
+            WSTD_3Q/*-macOS.pkg

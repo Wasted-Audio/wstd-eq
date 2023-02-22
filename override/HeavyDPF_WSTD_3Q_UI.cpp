@@ -111,7 +111,7 @@ protected:
         ImFont* titleBarFont = io.Fonts->Fonts[2];
 
         ImGui::PushFont(titleBarFont);
-        if (ImGui::Begin("WSTD EQ", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
+        if (ImGui::Begin("WSTD 3Q", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
         {
 
             ImGui::Dummy(ImVec2(0.0f, 8.0f));
