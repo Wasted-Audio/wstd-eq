@@ -4,6 +4,8 @@
 
 #include "DistrhoUI.hpp"
 #include "ResizeHandle.hpp"
+#include "veramobd.hpp"
+
 
 START_NAMESPACE_DISTRHO
 
@@ -31,8 +33,19 @@ public:
     {
         setGeometryConstraints(DISTRHO_UI_DEFAULT_WIDTH, DISTRHO_UI_DEFAULT_HEIGHT, true);
 
-        // hide handle if UI is resizable
-        // if (isResizable())
+        ImGuiIO& io(ImGui::GetIO());
+
+        ImFontConfig fc;
+        fc.FontDataOwnedByAtlas = true;
+        fc.OversampleH = 1;
+        fc.OversampleV = 1;
+        fc.PixelSnapH = true;
+
+        io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 16.0f, &fc);
+        io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 21.0f, &fc);
+        io.Fonts->Build();        
+        io.FontDefault = io.Fonts->Fonts[1];
+
         fResizeHandle.hide();
     }
 
@@ -81,7 +94,6 @@ protected:
 
         const float width = getWidth();
         const float height = getHeight();
-        // const float margin = 20.0f * getScaleFactor();
         const float margin = 0.0f;
 
         ImGui::SetNextWindowPos(ImVec2(margin, margin));
@@ -90,13 +102,13 @@ protected:
         ImGuiStyle& style = ImGui::GetStyle();
         style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
 
+
         style.Colors[ImGuiCol_TitleBgActive] = (ImVec4)ImColor::HSV(3.31f / 3.6f, 0.64f, 0.40f);
         style.Colors[ImGuiCol_WindowBg] = (ImVec4)ImColor::HSV(3.31f / 3.6f, 0.64f, 0.10f);
 
-        ImGui::Text("DpiEnableScaleFonts");
+        ImGuiIO& io(ImGui::GetIO());
         ImFont* defaultFont = ImGui::GetFont();
-        ImFont* titleBarFont = new ImFont(*defaultFont);
-        titleBarFont->Scale = 1.3f;
+        ImFont* titleBarFont = io.Fonts->Fonts[2];
 
         ImGui::PushFont(titleBarFont);
         if (ImGui::Begin("WSTD EQ", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
