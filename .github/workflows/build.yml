@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  HVCC_VERSION: cead88b82757761013af6346ccffdcd38660d82f
+  HVCC_VERSION: 76c18ae790a497e72d468fb3eceafbb80be65b6e
 
 jobs:
   linux-x86_64:

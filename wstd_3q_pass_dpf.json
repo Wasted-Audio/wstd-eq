@@ -4,8 +4,29 @@
         "dpf_path": "../",
         "project": true,
         "enable_ui": true,
+        "enable_modgui": true,
+        "ui_size": {
+            "width": 120,
+            "height": 520
+        },
         "midi_input": 0,
         "midi_output": 0,
+        "port_groups": {
+            "output": {
+                "High": {
+                    "Left": 0,
+                    "Right": 1
+                },
+                "Mid": {
+                    "Left": 2,
+                    "Right": 3
+                },
+                "Low": {
+                    "Left": 4,
+                    "Right": 5
+                }
+            }
+        },
         "plugin_formats": [
             "lv2_sep",
             "vst2",
@@ -14,11 +35,10 @@
             "jack"
         ],
         "lv2_info": "lv2:EQPlugin",
-        "vst3_info": "Fx|EQ|Stereo",
+        "vst3_info": "Fx|EQ",
         "clap_info": [
             "audio-effect",
-            "equalizer",
-            "stereo"
+            "equalizer"
         ]
     }
 }
