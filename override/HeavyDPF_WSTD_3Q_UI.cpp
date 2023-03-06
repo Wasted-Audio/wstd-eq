@@ -43,7 +43,7 @@ public:
 
         io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 16.0f, &fc);
         io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 21.0f, &fc);
-        io.Fonts->Build();        
+        io.Fonts->Build();
         io.FontDefault = io.Fonts->Fonts[1];
 
         fResizeHandle.hide();
