@@ -27,6 +27,8 @@
                 }
             }
         },
+        "plugin_uri": "https://wasted.audio/software/wstd_3q",
+        "plugin_clap_id": "audio.wasted.wstd_3q",
         "plugin_formats": [
             "lv2_sep",
             "vst2",
