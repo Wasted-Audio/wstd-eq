@@ -4,8 +4,15 @@
         "dpf_path": "../",
         "project": true,
         "enable_ui": true,
+        "enable_modgui": true,
+        "ui_size": {
+            "width": 120,
+            "height": 520
+        },
         "midi_input": 0,
         "midi_output": 0,
+        "plugin_uri": "https://wasted.audio/software/wstd_eq",
+        "plugin_clap_id": "audio.wasted.wstd_eq",
         "plugin_formats": [
             "lv2_sep",
             "vst2",
