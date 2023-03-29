@@ -11,6 +11,19 @@ START_NAMESPACE_DISTRHO
 
 // --------------------------------------------------------------------------------------------------------------------
 
+ImVec4 ColorBright(ImVec4 color, float bright)
+{
+    auto outcol = ImVec4(
+        color.x + (bright / 100.0f),
+        color.y + (bright / 100.0f),
+        color.z + (bright / 100.0f),
+        color.w
+    );
+
+    return outcol;
+}
+
+
 class ImGuiPluginUI : public UI
 {
     float ffreq = 1337.0f;
@@ -110,14 +123,14 @@ protected:
         ImFont* defaultFont = ImGui::GetFont();
         ImFont* titleBarFont = io.Fonts->Fonts[2];
 
-        auto HighColorActive = ImColor::HSV(2.04f / 3.6f, 0.83f, 0.64f);
-        auto HighColorHovered = ImColor::HSV(2.04f / 3.6f, 0.83f, 0.84f);
-        auto MidColorActive = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.64f);
-        auto MidColorHovered = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.74f);
-        auto MidFreqColorActive = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.44f);
-        auto MidFreqColorHovered = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.64f);
-        auto LowColorActive = ImColor::HSV(0.03f / 3.6f, 0.76f, 0.74f);
-        auto LowColorHovered = ImColor::HSV(0.03f / 3.6f, 0.76f, 0.84f);
+        auto HighColorActive     = ColorBright(ImColor::HSV(2.04f / 3.6f, 0.83f, 0.64f), fhigh);
+        auto HighColorHovered    = ColorBright(ImColor::HSV(2.04f / 3.6f, 0.83f, 0.84f), fhigh);
+        auto MidColorActive      = ColorBright(ImColor::HSV(1.6f / 3.6f, 0.77f, 0.64f), fmid);
+        auto MidColorHovered     = ColorBright(ImColor::HSV(1.6f / 3.6f, 0.77f, 0.74f), fmid);
+        auto MidFreqColorActive  = ColorBright(ImColor::HSV(1.6f / 3.6f, 0.77f, 0.44f), fmid);
+        auto MidFreqColorHovered = ColorBright(ImColor::HSV(1.6f / 3.6f, 0.77f, 0.64f), fmid);
+        auto LowColorActive      = ColorBright(ImColor::HSV(0.03f / 3.6f, 0.76f, 0.74f), flow);
+        auto LowColorHovered     = ColorBright(ImColor::HSV(0.03f / 3.6f, 0.76f, 0.84f), flow);
 
         ImGui::PushFont(titleBarFont);
         if (ImGui::Begin("WSTD EQ", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
