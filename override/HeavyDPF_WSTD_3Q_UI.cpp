@@ -13,14 +13,26 @@ START_NAMESPACE_DISTRHO
 
 ImVec4 ColorBright(ImVec4 color, float bright)
 {
-    auto outcol = ImVec4(
-        color.x + (bright / 100.0f),
-        color.y + (bright / 100.0f),
-        color.z + (bright / 100.0f),
-        color.w
-    );
-
-    return outcol;
+    if (bright > -15.0f)
+    {
+        auto outcol = ImVec4(
+            color.x + (bright / 100.0f),
+            color.y + (bright / 100.0f),
+            color.z + (bright / 100.0f),
+            color.w
+        );
+        return outcol;
+    }
+    else
+    {
+        auto outcol = ImVec4(
+            0.3f,
+            0.3f,
+            0.3f,
+            color.w
+        );
+        return outcol;
+    }
 }
 
 
