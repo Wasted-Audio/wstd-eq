@@ -5,87 +5,12 @@
 #include "DistrhoUI.hpp"
 #include "ResizeHandle.hpp"
 #include "veramobd.hpp"
+#include "wstdcolors.hpp"
 
 
 START_NAMESPACE_DISTRHO
 
 // --------------------------------------------------------------------------------------------------------------------
-
-ImVec4 ColorBright(ImVec4 color, float bright)
-{
-    if (bright > -15.0f)
-    {
-        auto outcol = ImVec4(
-            color.x + (bright / 100.0f),
-            color.y + (bright / 100.0f),
-            color.z + (bright / 100.0f),
-            color.w
-        );
-        return outcol;
-    }
-    else
-    {
-        auto outcol = ImVec4(
-            0.3f,
-            0.3f,
-            0.3f,
-            color.w
-        );
-        return outcol;
-    }
-}
-
-ImVec4 ColorMid(ImVec4 high_col, ImVec4 mid_col, ImVec4 low_col, float bright, float freq)
-{
-    auto factor = bright / 100.0f;
-
-    auto comp = (log(freq / 313.3f) / log(5705.6f / 313.3f)) * 2.0f - 1.0f;
-
-    if (bright == -15.0f)
-    {
-        auto outcol = ImVec4(
-            0.3f,
-            0.3f,
-            0.3f,
-            mid_col.w
-        );
-        return outcol;
-    }
-    else
-    {
-        if (comp == 0.0f)
-        {
-            auto outcol = ImVec4(
-                mid_col.x + factor,
-                mid_col.y + factor,
-                mid_col.z + factor,
-                mid_col.w
-            );
-            return outcol;
-        }
-        else if (comp > 0.0f)
-        {
-            auto outcol = ImVec4(
-                (mid_col.x + (high_col.x * comp) )/(1 + comp) + factor,
-                (mid_col.y + (high_col.y * comp) )/(1 + comp) + factor,
-                (mid_col.z + (high_col.z * comp) )/(1 + comp) + factor,
-                (mid_col.w + (high_col.w * comp) )/(1 + comp)
-            );
-            return outcol;
-        }
-        else if (comp < 0.0f)
-        {
-            auto outcol = ImVec4(
-                (mid_col.x + (low_col.x * fabs(comp)) )/(1 + fabs(comp)) + factor,
-                (mid_col.y + (low_col.y * fabs(comp)) )/(1 + fabs(comp)) + factor,
-                (mid_col.z + (low_col.z * fabs(comp)) )/(1 + fabs(comp)) + factor,
-                (mid_col.w + (low_col.w * fabs(comp)) )/(1 + fabs(comp))
-            );
-            return outcol;
-        }
-    }
-}
-
 
 class ImGuiPluginUI : public UI
 {
@@ -185,14 +110,6 @@ protected:
         ImGuiIO& io(ImGui::GetIO());
         ImFont* defaultFont = ImGui::GetFont();
         ImFont* titleBarFont = io.Fonts->Fonts[2];
-
-        auto Blue = ImColor::HSV(2.04f / 3.6f, 0.83f, 0.64f);
-        auto BlueBr = ImColor::HSV(2.04f / 3.6f, 0.83f, 0.84f);
-        auto Green = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.64f);
-        auto GreenBr = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.74f);
-        auto GreenDr = ImColor::HSV(1.6f / 3.6f, 0.77f, 0.44f);
-        auto Red = ImColor::HSV(0.03f / 3.6f, 0.76f, 0.74f);
-        auto RedBr = ImColor::HSV(0.03f / 3.6f, 0.76f, 0.84f);
 
         auto HighColorActive     = ColorBright(Blue, fhigh);
         auto HighColorHovered    = ColorBright(BlueBr, fhigh);
