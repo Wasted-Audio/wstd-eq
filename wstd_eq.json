@@ -13,7 +13,7 @@
         },
         "midi_input": 0,
         "midi_output": 0,
-        "version": "0, 2, 1",
+        "version": "0, 3, 1",
         "license": "GPL-3.0-or-later",
         "homepage": "https://wasted.audio/software/wstd_eq",
         "plugin_uri": "https://wasted.audio/software/wstd_eq",
