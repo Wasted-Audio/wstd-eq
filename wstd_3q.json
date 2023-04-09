@@ -1,8 +1,10 @@
 {
     "name": "WSTD_3Q",
     "dpf": {
-        "dpf_path": "../",
-        "project": true,
+        "dpf_path": "../dep/",
+        "makefile_dep": [
+            "wstd.clrs"
+        ],
         "enable_ui": true,
         "enable_modgui": true,
         "ui_size": {

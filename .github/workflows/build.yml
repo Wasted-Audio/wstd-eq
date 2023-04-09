@@ -4,7 +4,7 @@ on:
   push:
 
 env:
-  HVCC_VERSION: f9861c264ea6a4db90d8c65e2360140a2918198e
+  HVCC_VERSION: 82c5c3971eb77c8b508e3256abe00083662bf538
 
 jobs:
   linux-x86_64:
@@ -27,7 +27,7 @@ jobs:
 
       - name: Build plugins
         run: |
-          hvcc wstd_3q_pass_q_dpf.pd -n WSTD_3Q -m wstd_3q_pass_dpf.json -o WSTD_3Q -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
+          hvcc wstd_3q.pd -n WSTD_3Q -m wstd_3q.json -o WSTD_3Q -g dpf -p dep/heavylib/ dep/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_3Q/plugin/source/
           make -C WSTD_3Q WITH_LTO=true -j $(nproc)
 
@@ -85,7 +85,7 @@ jobs:
           PKG_CONFIG: "false"
           WINEDEBUG: "-all"
         run: |
-          hvcc wstd_3q_pass_q_dpf.pd -n WSTD_3Q -m wstd_3q_pass_dpf.json -o WSTD_3Q -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
+          hvcc wstd_3q.pd -n WSTD_3Q -m wstd_3q.json -o WSTD_3Q -g dpf -p dep/heavylib/ dep/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_3Q/plugin/source/
           make -C WSTD_3Q WITH_LTO=true -j $(nproc)
 
@@ -137,11 +137,11 @@ jobs:
           CXXFLAGS: -arch x86_64 -arch arm64 -DMAC_OS_X_VERSION_MAX_ALLOWED=MAC_OS_X_VERSION_10_12 -mmacosx-version-min=10.12 -mtune=generic -msse -msse2
           LDFLAGS: -arch x86_64 -arch arm64 -mmacosx-version-min=10.12
         run: |
-          hvcc wstd_3q_pass_q_dpf.pd -n WSTD_3Q -m wstd_3q_pass_dpf.json -o WSTD_3Q -g dpf -p heavylib/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
+          hvcc wstd_3q.pd -n WSTD_3Q -m wstd_3q.json -o WSTD_3Q -g dpf -p dep/heavylib/ dep/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
           cp override/* WSTD_3Q/plugin/source/
           make -C WSTD_3Q NOOPT=true WITH_LTO=true -j $(sysctl -n hw.logicalcpu)
           cd WSTD_3Q
-          ../dpf/utils/package-osx-bundles.sh
+          ../dep/dpf/utils/package-osx-bundles.sh
 
       - name: Set sha8 (non-release)
         if: startsWith(github.ref, 'refs/tags/') != true
