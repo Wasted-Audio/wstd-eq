@@ -123,6 +123,14 @@ protected:
         const float hundred = 100 * getScaleFactor();
         const float seventy = 70 * getScaleFactor();
 
+        auto db = 0.1f;
+        auto hz = 20.0f;
+
+        if (io.KeyShift)
+        {
+            db = 0.01f;
+            hz = 1.0f;
+        }
 
         ImGui::PushFont(titleBarFont);
         if (ImGui::Begin("WSTD EQ", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
@@ -136,7 +144,7 @@ protected:
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)HighColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)HighColorHovered);
-            if (ImGuiKnobs::Knob("High", &fhigh, -15.0f, 15.0, 0.2f, "%.1fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
+            if (ImGuiKnobs::Knob("High", &fhigh, -15.0f, 15.0, db, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
             {
 
                 if (ImGui::IsItemActivated())
@@ -151,7 +159,7 @@ protected:
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)MidColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)MidColorHovered);
-            if (ImGuiKnobs::Knob("Mid", &fmid, -15.0f, 15.0, 0.2f, "%.1fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
+            if (ImGuiKnobs::Knob("Mid", &fmid, -15.0f, 15.0, db, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
             {
                 if (ImGui::IsItemActivated())
                 {
@@ -166,7 +174,7 @@ protected:
             ImGui::Dummy(ImVec2(7.5f * getScaleFactor(), 0.0f)); ImGui::SameLine();
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)MidFreqColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)MidFreqColorHovered);
-            if (ImGuiKnobs::Knob("Mid Freq", &ffreq, 313.3f, 5705.6f, 50.0f, "%.1fHz", ImGuiKnobVariant_SteppedTick, seventy, ImGuiKnob_FlagsLog, 11))
+            if (ImGuiKnobs::Knob("Mid Freq", &ffreq, 313.3f, 5705.6f, hz, "%.1fHz", ImGuiKnobVariant_SteppedTick, seventy, ImGuiKnob_FlagsLog, 11))
             {
                 if (ImGui::IsItemActivated())
                 {
@@ -180,7 +188,7 @@ protected:
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)LowColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)LowColorHovered);
-            if (ImGuiKnobs::Knob("Low", &flow, -15.0f, 15.0, 0.2f, "%.1fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
+            if (ImGuiKnobs::Knob("Low", &flow, -15.0f, 15.0, db, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
             {
                 if (ImGui::IsItemActivated())
                 {
