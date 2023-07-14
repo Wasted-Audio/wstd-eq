@@ -103,9 +103,8 @@ protected:
         ImGuiStyle& style = ImGui::GetStyle();
         style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
 
-
-        style.Colors[ImGuiCol_TitleBgActive] = (ImVec4)ImColor::HSV(3.31f / 3.6f, 0.64f, 0.40f);
-        style.Colors[ImGuiCol_WindowBg] = (ImVec4)ImColor::HSV(3.31f / 3.6f, 0.64f, 0.10f);
+        style.Colors[ImGuiCol_TitleBgActive] = (ImVec4)WstdTitleBgActive;
+        style.Colors[ImGuiCol_WindowBg] = (ImVec4)WstdWindowBg;
 
         ImGuiIO& io(ImGui::GetIO());
         ImFont* defaultFont = ImGui::GetFont();
@@ -123,19 +122,18 @@ protected:
         const float hundred = 100 * getScaleFactor();
         const float seventy = 70 * getScaleFactor();
 
-        auto db = 0.1f;
-        auto hz = 20.0f;
+        auto dbstep = 0.1f;
+        auto hzstep = 20.0f;
 
         if (io.KeyShift)
         {
-            db = 0.01f;
-            hz = 1.0f;
+            dbstep = 0.01f;
+            hzstep = 1.0f;
         }
 
         ImGui::PushFont(titleBarFont);
         if (ImGui::Begin("WSTD 3Q", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
         {
-
             ImGui::Dummy(ImVec2(0.0f, 8.0f * getScaleFactor()));
             ImGui::PushFont(defaultFont);
             auto ImGuiKnob_Flags = ImGuiKnobFlags_DoubleClickReset + ImGuiKnobFlags_ValueTooltip + ImGuiKnobFlags_NoInput + ImGuiKnobFlags_ValueTooltipHideOnClick;
@@ -144,9 +142,8 @@ protected:
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)HighColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)HighColorHovered);
-            if (ImGuiKnobs::Knob("High", &fhigh, -15.0f, 15.0, db, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
+            if (ImGuiKnobs::Knob("High", &fhigh, -15.0f, 15.0, dbstep, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
             {
-
                 if (ImGui::IsItemActivated())
                 {
                     editParameter(0, true);
@@ -159,7 +156,7 @@ protected:
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)MidColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)MidColorHovered);
-            if (ImGuiKnobs::Knob("Mid", &fmid, -15.0f, 15.0, db, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
+            if (ImGuiKnobs::Knob("Mid", &fmid, -15.0f, 15.0, dbstep, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
             {
                 if (ImGui::IsItemActivated())
                 {
@@ -174,7 +171,7 @@ protected:
             ImGui::Dummy(ImVec2(7.5f * getScaleFactor(), 0.0f)); ImGui::SameLine();
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)MidFreqColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)MidFreqColorHovered);
-            if (ImGuiKnobs::Knob("Mid Freq", &ffreq, 313.3f, 5705.6f, hz, "%.1fHz", ImGuiKnobVariant_SteppedTick, seventy, ImGuiKnob_FlagsLog, 11))
+            if (ImGuiKnobs::Knob("Mid Freq", &ffreq, 313.3f, 5705.6f, hzstep, "%.1fHz", ImGuiKnobVariant_SteppedTick, seventy, ImGuiKnob_FlagsLog, 11))
             {
                 if (ImGui::IsItemActivated())
                 {
@@ -188,7 +185,7 @@ protected:
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)LowColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)LowColorHovered);
-            if (ImGuiKnobs::Knob("Low", &flow, -15.0f, 15.0, db, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
+            if (ImGuiKnobs::Knob("Low", &flow, -15.0f, 15.0, dbstep, "%.2fdB", ImGuiKnobVariant_SteppedTick, hundred, ImGuiKnob_FlagsDB, 7))
             {
                 if (ImGui::IsItemActivated())
                 {
