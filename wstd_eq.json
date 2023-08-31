@@ -13,7 +13,7 @@
         },
         "midi_input": 0,
         "midi_output": 0,
-        "version": "0, 3, 1",
+        "version": "1, 0, 0",
         "license": "GPL-3.0-or-later",
         "homepage": "https://wasted.audio/software/wstd_eq",
         "plugin_uri": "https://wasted.audio/software/wstd_eq",
@@ -22,8 +22,7 @@
             "lv2_sep",
             "vst2",
             "vst3",
-            "clap",
-            "jack"
+            "clap"
         ],
         "lv2_info": "lv2:EQPlugin",
         "vst3_info": "Fx|EQ|Stereo",
