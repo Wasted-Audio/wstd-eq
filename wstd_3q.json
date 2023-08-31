@@ -29,7 +29,7 @@
                 }
             }
         },
-        "version": "0, 3, 1",
+        "version": "1, 0, 0",
         "license": "GPL-3.0-or-later",
         "homepage": "https://wasted.audio/software/wstd_3q",
         "plugin_uri": "https://wasted.audio/software/wstd_3q",
@@ -38,8 +38,7 @@
             "lv2_sep",
             "vst2",
             "vst3",
-            "clap",
-            "jack"
+            "clap"
         ],
         "lv2_info": "lv2:EQPlugin",
         "vst3_info": "Fx|EQ",
