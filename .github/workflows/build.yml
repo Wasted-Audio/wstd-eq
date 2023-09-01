@@ -43,7 +43,8 @@ jobs:
       - name: Pack binaries
         run: |
           cd WSTD_3Q
-          tar -c -h  -z -f ${{ github.event.repository.name }}-linux-x86_64-${{ github.event.pull_request.number || env.action_tag }}.tar.gz bin/
+          mv bin WSTD_3Q
+          tar -c -h  -z -f ${{ github.event.repository.name }}-linux-x86_64-${{ github.event.pull_request.number || env.action_tag }}.tar.gz WSTD_3Q/
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}-linux-x86_64-${{ github.event.pull_request.number || env.action_tag }}
@@ -100,7 +101,8 @@ jobs:
       - name: Pack binaries
         run: |
           cd WSTD_3Q
-          tar -c -h -z -f ${{ github.event.repository.name }}-win64-${{ github.event.pull_request.number || env.action_tag }}.tar.gz bin/
+          mv bin WSTD_3Q
+          tar -c -h -z -f ${{ github.event.repository.name }}-win64-${{ github.event.pull_request.number || env.action_tag }}.tar.gz WSTD_3Q/
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}-win64-${{ github.event.pull_request.number || env.action_tag }}
