@@ -28,17 +28,11 @@ jobs:
           # sudo apt-get update -qq
           # sudo apt-get install -yqq libgl1-mesa-dev
 
-      - name: Export C/C++
-        run: |
-          hvcc wstd_eq.pd -n WSTD_EQ -m wstd_eq.json -o WSTD_EQ -g dpf -p dep/heavylib/ dep/ --copyright "Copyright (c) Wasted Audio 2023 - GPL-3.0-or-later"
-          cp override/* WSTD_EQ/plugin/source/
-
       - name: Build plugins
         uses: distrho/dpf-makefile-action@v1
         with:
           target: ${{ matrix.target }}
           dpf_path: 'dep/dpf'
-          extraargs: '-C WSTD_EQ'
 
       # - name: Set sha8 (non-release)
       #   if: startsWith(github.ref, 'refs/tags/') != true
