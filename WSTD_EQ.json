@@ -6,7 +6,7 @@
             "wstd.clrs"
         ],
         "enable_ui": true,
-        "enable_modgui": true,
+        "enable_modgui": false,
         "ui_size": {
             "width": 120,
             "height": 520

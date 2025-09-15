@@ -7,6 +7,7 @@ env:
   HVCC_COMMIT_HASH: 424308377a8b0e4291e0bfda3bcf68ae9fd88f33
   CACHE_VERSION: 1
   DEBIAN_FRONTEND: noninteractive
+  GIT_LFS_SKIP_SMUDGE: 1
 
 jobs:
   linux:

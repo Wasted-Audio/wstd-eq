@@ -8,7 +8,9 @@ PREGEN = $(PLUGINS:%=%/plugin/source)
 all: build
 
 build: pregen
-	$(foreach p,$(PLUGINS),$(MAKE) DPF_TARGET_DIR=$(CURDIR)/bin -C $(p))
+	$(foreach p, $(PLUGINS), $(MAKE) -C $(p);)
+	mkdir bin
+	$(foreach p, $(PLUGINS), mv $(p)/bin/* bin/;)
 
 pregen: $(PREGEN)
 
