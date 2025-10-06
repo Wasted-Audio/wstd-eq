@@ -6,7 +6,7 @@
             "wstd.clrs"
         ],
         "enable_ui": true,
-        "enable_modgui": true,
+        "enable_modgui": false,
         "ui_size": {
             "width": 120,
             "height": 520
@@ -30,6 +30,10 @@
             }
         },
         "version": "1, 0, 0",
+        "maker": "Wasted Audio",
+        "brand_id": "Wstd",
+        "brand_id_no_vst3": true,
+        "unique_id": "Ws3Q",
         "license": "GPL-3.0-or-later",
         "homepage": "https://wasted.audio/software/wstd_3q",
         "plugin_uri": "https://wasted.audio/software/wstd_3q",
