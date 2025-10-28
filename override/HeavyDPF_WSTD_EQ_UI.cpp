@@ -3,6 +3,9 @@
  */
 
 #include "DistrhoUI.hpp"
+#ifdef DISTRHO_OS_WASM
+#include "DistrhoStandaloneUtils.hpp"
+#endif
 #include "ResizeHandle.hpp"
 #include "veramobd.hpp"
 #include "wstdcolors.hpp"
@@ -96,6 +99,9 @@ protected:
         const float width = getWidth();
         const float height = getHeight();
         const float margin = 0.0f;
+        #ifdef DISTRHO_OS_WASM
+        static bool inputActive = false;
+        #endif
 
         ImGui::SetNextWindowPos(ImVec2(margin, margin));
         ImGui::SetNextWindowSize(ImVec2(width - 2 * margin, height - 2 * margin));
@@ -136,6 +142,25 @@ protected:
         {
             ImGui::Dummy(ImVec2(0.0f, 8.0f * getScaleFactor()));
             ImGui::PushFont(defaultFont);
+
+            #ifdef DISTRHO_OS_WASM
+            if (!inputActive)
+            {
+                ImGui::OpenPopup("Activate");
+            }
+
+            if (ImGui::BeginPopupModal("Activate", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoMove))
+            {
+                if (ImGui::Button("OK", ImVec2(80, 0)))
+                {
+                    requestAudioInput();
+                    inputActive = true;
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
+            #endif
+
             auto ImGuiKnob_Flags = ImGuiKnobFlags_DoubleClickReset + ImGuiKnobFlags_ValueTooltip + ImGuiKnobFlags_NoInput + ImGuiKnobFlags_ValueTooltipHideOnClick;
             auto ImGuiKnob_FlagsDB = ImGuiKnob_Flags + ImGuiKnobFlags_dB;
             auto ImGuiKnob_FlagsLog = ImGuiKnob_Flags + ImGuiKnobFlags_Logarithmic;
