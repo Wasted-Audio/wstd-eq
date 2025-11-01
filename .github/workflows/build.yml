@@ -83,10 +83,7 @@ jobs:
           p12-password: ${{ secrets.MACOS_INSTALLER_DEV_PASS }}
 
       - uses: distrho/dpf-makefile-action@v1
-        with:
-          target: ${{ matrix.target }}
-          hvcc: True
-          dpf_path: 'dep/dpf'
+        env:
           MACOS_PKG_NAME: "WSTD-EQ"
           MACOS_PKG_LICENSE_FILE: "${{ github.workspace }}/LICENSE"
           MACOS_PKG_WELCOME_TXT: "${{ github.workspace }}/welcome.txt"
@@ -95,6 +92,10 @@ jobs:
           MACOS_NOTARIZATION_USER: ${{ secrets.MACOS_NOTARIZATION_USER }}
           MACOS_NOTARIZATION_PASS: ${{ secrets.MACOS_NOTARIZATION_PASS }}
           MACOS_NOTARIZATION_TEAM: ${{ secrets.MACOS_NOTARIZATION_TEAM }}
+        with:
+          target: ${{ matrix.target }}
+          hvcc: True
+          dpf_path: 'dep/dpf'
 
   # pluginval:
   #   runs-on: ubuntu-22.04
