@@ -1,0 +1,7 @@
+@name@
+
+The exact same characteristic 3-band EQ algorithm as our WSTD EQ plugin, except with separate outputs! A 3-way cross-over with adjustable mid.
+
+It requires a plugin host that supports port-groups.
+
+Like all our other software this plugin is without DRM and Opensource.
