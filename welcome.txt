@@ -1,0 +1,7 @@
+@name@
+
+Our characteristic 3-band EQ plugin that adds a little something to your sound. If you are looking for a neutral and transparent sounding EQ, then this plugin is not for you!
+
+Its simple design encourages the user to listen and find their own sweet spots. Each band has ±15dB of adjustment range, with full mute on the far left. Further more, the mid band frequency is tuned to add extra resonance at its extremities. This adds some crunch and makes this band stand out just a little more.
+
+Like all our other software this plugin is without DRM and Opensource.
