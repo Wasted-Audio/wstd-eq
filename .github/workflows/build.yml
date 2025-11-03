@@ -10,52 +10,52 @@ env:
   GIT_LFS_SKIP_SMUDGE: 1
 
 jobs:
-  # linux:
-  #   strategy:
-  #     matrix:
-  #       target: [linux-arm64, linux-armhf, linux-i686, linux-riscv64, linux-x86_64]
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ubuntu:20.04
-  #   steps:
-  #     - name: Install git
-  #       run: |
-  #         apt-get update -qq && apt-get install -yqq --no-install-recommends ca-certificates curl git openssl
-  #         curl -sLO https://launchpad.net/~kxstudio-debian/+archive/ubuntu/toolchain/+files/git_2.34.1-1ubuntu1~bpo20.04.1~ppa1_amd64.deb
-  #         curl -sLO https://launchpad.net/~kxstudio-debian/+archive/ubuntu/toolchain/+files/git-man_2.34.1-1ubuntu1~bpo20.04.1~ppa1_all.deb
-  #         dpkg -i *.deb
-  #         rm *.deb
-  #     - name: Install and use python3.9
-  #       run: |
-  #           apt-get install -yqq python3 python3.9
-  #           update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
-  #     - name: Install pip
-  #       run: apt-get install -yqq --no-install-recommends python3-pip
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #       with:
-  #         submodules: recursive
-  #     - uses: distrho/dpf-makefile-action@v1
-  #       with:
-  #         target: ${{ matrix.target }}
-  #         hvcc: True
-  #         dpf_path: 'dep/dpf'
+  linux:
+    strategy:
+      matrix:
+        target: [linux-arm64, linux-armhf, linux-i686, linux-riscv64, linux-x86_64]
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:20.04
+    steps:
+      - name: Install git
+        run: |
+          apt-get update -qq && apt-get install -yqq --no-install-recommends ca-certificates curl git openssl
+          curl -sLO https://launchpad.net/~kxstudio-debian/+archive/ubuntu/toolchain/+files/git_2.34.1-1ubuntu1~bpo20.04.1~ppa1_amd64.deb
+          curl -sLO https://launchpad.net/~kxstudio-debian/+archive/ubuntu/toolchain/+files/git-man_2.34.1-1ubuntu1~bpo20.04.1~ppa1_all.deb
+          dpkg -i *.deb
+          rm *.deb
+      - name: Install and use python3.9
+        run: |
+            apt-get install -yqq python3 python3.9
+            update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 1
+      - name: Install pip
+        run: apt-get install -yqq --no-install-recommends python3-pip
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: distrho/dpf-makefile-action@v1
+        with:
+          target: ${{ matrix.target }}
+          hvcc: True
+          dpf_path: 'dep/dpf'
 
-  # windows:
-  #   strategy:
-  #     matrix:
-  #       target: [win32, win64]
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #       with:
-  #         submodules: recursive
-  #     - uses: distrho/dpf-makefile-action@v1
-  #       with:
-  #         target: ${{ matrix.target }}
-  #         hvcc: True
-  #         dpf_path: 'dep/dpf'
+  windows:
+    strategy:
+      matrix:
+        target: [win32, win64]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: distrho/dpf-makefile-action@v1
+        with:
+          target: ${{ matrix.target }}
+          hvcc: True
+          dpf_path: 'dep/dpf'
 
   macos:
     strategy:
@@ -97,24 +97,24 @@ jobs:
           hvcc: True
           dpf_path: 'dep/dpf'
 
-  # pluginval:
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         submodules: recursive
-  #     - uses: distrho/dpf-makefile-action@v1
-  #       with:
-  #         target: pluginval
-  #         hvcc: True
-  #         dpf_path: 'dep/dpf'
+  pluginval:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: distrho/dpf-makefile-action@v1
+        with:
+          target: pluginval
+          hvcc: True
+          dpf_path: 'dep/dpf'
 
-  # source:
-  #   runs-on: ubuntu-22.04
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         submodules: recursive
-  #     - uses: distrho/dpf-makefile-action@v1
-  #       with:
-  #         target: source
+  source:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: distrho/dpf-makefile-action@v1
+        with:
+          target: source
