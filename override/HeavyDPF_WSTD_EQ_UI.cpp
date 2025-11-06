@@ -9,6 +9,7 @@
 #include "ResizeHandle.hpp"
 #include "veramobd.hpp"
 #include "wstdcolors.hpp"
+#include "DearImGui/imgui_impl_opengl2.h"
 
 
 START_NAMESPACE_DISTRHO
@@ -22,7 +23,9 @@ class ImGuiPluginUI : public UI
     float flow = 0.0f;
     float fmid = 0.0f;
 
-    ResizeHandle fResizeHandle;
+    int isize = 1;
+
+    bool sizeChanged = false;
 
     // ----------------------------------------------------------------------------------------------------------------
 
@@ -32,11 +35,8 @@ public:
       The UI should be initialized to a default state that matches the plugin side.
     */
     ImGuiPluginUI()
-        : UI(DISTRHO_UI_DEFAULT_WIDTH, DISTRHO_UI_DEFAULT_HEIGHT, true),
-          fResizeHandle(this)
+        : UI(DISTRHO_UI_DEFAULT_WIDTH, DISTRHO_UI_DEFAULT_HEIGHT)
     {
-        setGeometryConstraints(DISTRHO_UI_DEFAULT_WIDTH, DISTRHO_UI_DEFAULT_HEIGHT, true);
-
         ImGuiIO& io(ImGui::GetIO());
 
         ImFontConfig fc;
@@ -45,12 +45,38 @@ public:
         fc.OversampleV = 1;
         fc.PixelSnapH = true;
 
-        io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 16.0f * getScaleFactor(), &fc);
-        io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 21.0f * getScaleFactor(), &fc);
+        io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 16.0f * getScaleFactor() * isize, &fc);
+        io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 21.0f * getScaleFactor() * isize, &fc);
         io.Fonts->Build();
         io.FontDefault = io.Fonts->Fonts[1];
+    }
 
-        fResizeHandle.hide();
+    void uiIdle() override
+    {
+        if (sizeChanged) {
+            ImGuiIO& io(ImGui::GetIO());
+
+            io.Fonts->Clear();
+
+            ImFontConfig fc;
+            fc.FontDataOwnedByAtlas = true;
+            fc.OversampleH = 1;
+            fc.OversampleV = 1;
+            fc.PixelSnapH = true;
+
+            io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 16.0f * getScaleFactor() * isize, &fc);
+            io.Fonts->AddFontFromMemoryCompressedTTF((void*)veramobd_compressed_data, veramobd_compressed_size, 21.0f * getScaleFactor() * isize, &fc);
+            io.Fonts->Build();
+            io.FontDefault = io.Fonts->Fonts[1];
+
+            #if defined(DGL_USE_GLES2) || defined(DGL_USE_GLES3) || defined(DGL_USE_OPENGL3)
+                ImGui_ImplOpenGL3_CreateFontsTexture();
+            #else
+                ImGui_ImplOpenGL2_CreateFontsTexture();
+            #endif
+
+            sizeChanged = false;
+        }
     }
 
 protected:
@@ -95,7 +121,7 @@ protected:
     */
     void onImGuiDisplay() override
     {
-
+        const float scaleFactor = isize * getScaleFactor();
         const float width = getWidth();
         const float height = getHeight();
         const float margin = 0.0f;
@@ -125,8 +151,8 @@ protected:
         auto LowColorActive      = ColorBright(Red, flow);
         auto LowColorHovered     = ColorBright(RedBr, flow);
 
-        const float hundred = 100 * getScaleFactor();
-        const float seventy = 70 * getScaleFactor();
+        const float hundred = 100 * scaleFactor;
+        const float seventy = 70 * scaleFactor;
 
         auto dbstep = 0.1f;
         auto hzstep = 20.0f;
@@ -140,7 +166,7 @@ protected:
         ImGui::PushFont(titleBarFont);
         if (ImGui::Begin("WSTD EQ", nullptr, ImGuiWindowFlags_NoResize + ImGuiWindowFlags_NoCollapse))
         {
-            ImGui::Dummy(ImVec2(0.0f, 8.0f * getScaleFactor()));
+            ImGui::Dummy(ImVec2(0.0f, 8.0f * scaleFactor));
             ImGui::PushFont(defaultFont);
 
             #ifdef DISTRHO_OS_WASM
@@ -164,6 +190,15 @@ protected:
             auto ImGuiKnob_Flags = ImGuiKnobFlags_DoubleClickReset + ImGuiKnobFlags_ValueTooltip + ImGuiKnobFlags_NoInput + ImGuiKnobFlags_ValueTooltipHideOnClick;
             auto ImGuiKnob_FlagsDB = ImGuiKnob_Flags + ImGuiKnobFlags_dB;
             auto ImGuiKnob_FlagsLog = ImGuiKnob_Flags + ImGuiKnobFlags_Logarithmic;
+
+            if (ImGui::SliderInt("Size", &isize, 1, 2))
+            {
+                if (ImGui::IsItemActivated())
+                {
+                    sizeChanged = true;
+                    setSize(isize * getWidth(), isize * getHeight());
+                }
+            }
 
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)HighColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)HighColorHovered);
@@ -193,7 +228,7 @@ protected:
             }
             ImGui::PopStyleColor(2);
 
-            ImGui::Dummy(ImVec2(7.5f * getScaleFactor(), 0.0f)); ImGui::SameLine();
+            ImGui::Dummy(ImVec2(7.5f * scaleFactor, 0.0f)); ImGui::SameLine();
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,    (ImVec4)MidFreqColorActive);
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   (ImVec4)MidFreqColorHovered);
             if (ImGuiKnobs::Knob("Mid Freq", &ffreq, 313.3f, 5705.6f, hzstep, "%.1fHz", ImGuiKnobVariant_SteppedTick, seventy, ImGuiKnob_FlagsLog, 11))
