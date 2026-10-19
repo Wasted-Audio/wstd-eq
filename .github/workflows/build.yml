@@ -32,7 +32,7 @@ jobs:
       - name: Install pip
         run: apt-get install -yqq --no-install-recommends python3-pip
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
       - uses: distrho/dpf-makefile-action@v1
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           submodules: recursive
       - uses: distrho/dpf-makefile-action@v1
@@ -63,7 +63,7 @@ jobs:
         target: [macos-intel, macos-universal]
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
 
@@ -90,7 +90,7 @@ jobs:
   pluginval:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
       - uses: distrho/dpf-makefile-action@v1
@@ -102,7 +102,7 @@ jobs:
   source:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
       - uses: distrho/dpf-makefile-action@v1
